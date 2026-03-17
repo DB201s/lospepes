@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Pour toi 💗</title>
+
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -16,9 +17,7 @@
       color: #fff;
     }
 
-    body {
-      position: relative;
-    }
+    body { position: relative; }
 
     .bg {
       position: fixed;
@@ -26,15 +25,7 @@
       background: url('photo.jpg') center center / cover no-repeat;
       z-index: -3;
       filter: blur(8px);
-      -webkit-filter: blur(8px);
       transform: scale(1.08);
-    }
-
-    .bg::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: transparent;
     }
 
     .rain {
@@ -48,14 +39,13 @@
     .emoji {
       position: absolute;
       top: -10vh;
-      user-select: none;
       animation: fall linear forwards;
-      text-shadow: 0 2px 8px rgba(0,0,0,0.25);
+      user-select: none;
     }
 
     @keyframes fall {
-      from { transform: translateY(0) rotate(0deg); }
-      to { transform: translateY(120vh) rotate(20deg); }
+      from { transform: translateY(0); }
+      to { transform: translateY(120vh); }
     }
 
     .page {
@@ -65,126 +55,67 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 22px 14px 30px;
+      padding: 20px;
     }
 
     .card {
       width: 100%;
       max-width: 420px;
-      background: rgba(255,255,255,0.10);
-      border: 1px solid rgba(255,255,255,0.18);
-      border-radius: 28px;
-      padding: 22px 16px;
-      box-shadow: 0 16px 40px rgba(0,0,0,0.16);
-      backdrop-filter: blur(4px);
-      -webkit-backdrop-filter: blur(4px);
+      background: rgba(255,255,255,0.1);
+      border-radius: 25px;
+      padding: 20px;
       text-align: center;
+      backdrop-filter: blur(5px);
     }
 
     h1 {
-      font-size: 23px;
-      line-height: 1.2;
+      font-size: 22px;
       margin-bottom: 10px;
-      text-shadow: 0 2px 10px rgba(0,0,0,0.3);
     }
 
     .heart {
-      font-size: 36px;
-      margin-bottom: 16px;
-      animation: pulse 1.8s infinite;
-    }
-
-    @keyframes pulse {
-      0%,100% { transform: scale(1); }
-      50% { transform: scale(1.08); }
+      font-size: 30px;
+      margin-bottom: 15px;
     }
 
     .reason-box {
       display: none;
       text-align: left;
-      background: rgba(255,255,255,0.14);
-      border: 1px solid rgba(255,255,255,0.14);
-      border-radius: 22px;
-      padding: 16px;
-      font-size: 15px;
-      line-height: 1.6;
-      min-height: 160px;
-      animation: fadeUp 0.35s ease;
-    }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(12px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .reason-number {
-      color: #ffd0df;
-      font-weight: 800;
-      font-size: 28px;
-      margin-right: 8px;
-      display: inline-block;
-      vertical-align: top;
-      line-height: 1;
+      background: rgba(255,255,255,0.15);
+      border-radius: 15px;
+      padding: 15px;
+      margin-top: 10px;
     }
 
     .controls {
       display: flex;
       gap: 10px;
-      margin-top: 16px;
+      margin-top: 15px;
     }
 
     .btn {
       flex: 1;
+      padding: 12px;
       border: none;
-      border-radius: 999px;
-      padding: 14px 16px;
-      font-size: 15px;
-      font-weight: 700;
-      color: #fff;
+      border-radius: 20px;
+      font-weight: bold;
       cursor: pointer;
-      transition: transform 0.15s ease, opacity 0.15s ease;
     }
 
-    .btn.primary {
-      background: linear-gradient(135deg, #ff4f93, #ff2f78);
-      box-shadow: 0 10px 24px rgba(255, 52, 122, 0.28);
-    }
-
-    .btn.secondary {
-      background: rgba(255,255,255,0.12);
-      border: 1px solid rgba(255,255,255,0.14);
-    }
-
-    .btn:active { transform: scale(0.97); }
-    .btn[disabled] { opacity: 0.45; cursor: default; }
+    .primary { background: #ff4f93; color: white; }
+    .secondary { background: rgba(255,255,255,0.2); color: white; }
 
     .final {
-      margin-top: 16px;
       display: none;
+      margin-top: 15px;
       text-align: left;
-      background: rgba(255,255,255,0.14);
-      border: 1px solid rgba(255,255,255,0.14);
-      border-radius: 22px;
-      padding: 16px;
-      font-size: 15px;
-      line-height: 1.65;
-      animation: fadeUp 0.35s ease;
-    }
-
-    .signature {
-      margin-top: 12px;
-      text-align: center;
-      font-size: 18px;
-    }
-
-    @media (min-width: 768px) {
-      .card { max-width: 500px; padding: 28px 22px; }
-      h1 { font-size: 30px; }
-      .reason-box, .final { font-size: 16px; }
-      .btn { font-size: 16px; }
+      background: rgba(255,255,255,0.15);
+      border-radius: 15px;
+      padding: 15px;
     }
   </style>
 </head>
+
 <body>
   <div class="bg"></div>
   <div class="rain" id="rain"></div>
@@ -202,86 +133,55 @@
       </div>
 
       <div class="final" id="finalMessage">
-        Passe de bonnes vacances j’espère te voir à ton retour le plus rapidement possible en plus tu serra toute bronzer et encore plus belle que tu ne l’ai déjà 💋
-        
+        Passe de bonnes vacances, j’espère te voir à ton retour le plus rapidement possible.<br><br>
+        En plus, tu seras toute bronzée… et encore plus belle que tu ne l’es déjà 💋
       </div>
     </section>
   </main>
 
   <script>
     const reasons = [
-      "je suis un homme très attentionné remplis de petite attention avec des truc tout bête comme ce genre de texte ahah.",
-      "que malgré le fait qu'on habite un peu loin c'est pas un soucis pour notre future relation que je suis un homme motivé.",
-      "que je fais attention au détails de tout se que tu peu me dire les choses que t'aime ou que t'aime moins.",
-      "que sa sera une femme qui ne manquera de rien du moins je ferai au mieux pour que tu sois comblé.",
-      "et pour finir car on dois faire non putain d'annivairsaire a l'autre bout du monde toi et moi."
+      "Je suis un homme très attentionné, avec plein de petites attentions et des gestes simples qui veulent dire beaucoup.",
+      "Même si on habite un peu loin, ce n’est pas un problème pour moi. Quand j’ai envie de quelqu’un, je suis vraiment motivé.",
+      "Je fais attention aux détails de tout ce que tu me dis, aux choses que tu aimes comme à celles que tu aimes moins.",
+      "Je ferai toujours de mon mieux pour que tu ne manques de rien et pour que tu te sentes bien à mes côtés.",
+      "Et surtout… on doit fêter nos putains d’anniversaires à l’autre bout du monde, toi et moi."
     ];
 
     let current = -1;
-    const box = document.getElementById('reasonBox');
-    const nextBtn = document.getElementById('nextBtn');
-    const prevBtn = document.getElementById('prevBtn');
-    const finalMessage = document.getElementById('finalMessage');
-
-    function renderReason() {
-      if (current >= 0 && current < reasons.length) {
-        box.style.display = 'block';
-        box.innerHTML = `<span class="reason-number">${current + 1}.</span> ${reasons[current]}`;
-      }
-
-      prevBtn.disabled = current <= 0;
-
-      if (current < reasons.length - 1) {
-        nextBtn.textContent = current === -1 ? 'Commencer 💌' : 'Suivante 💗';
-      } else {
-        nextBtn.textContent = 'Lire la fin ✨';
-      }
-    }
 
     function nextReason() {
-      if (current < reasons.length - 1) {
-        current++;
-        finalMessage.style.display = 'none';
-        nextBtn.disabled = false;
-        renderReason();
+      current++;
+
+      if (current < reasons.length) {
+        document.getElementById('reasonBox').style.display = 'block';
+        document.getElementById('reasonBox').innerText = reasons[current];
       } else {
-        finalMessage.style.display = 'block';
-        nextBtn.disabled = true;
-        finalMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        document.getElementById('finalMessage').style.display = 'block';
       }
     }
 
     function prevReason() {
       if (current > 0) {
         current--;
-        finalMessage.style.display = 'none';
-        nextBtn.disabled = false;
-        renderReason();
-      } else if (current === 0) {
-        current = -1;
-        box.style.display = 'none';
-        finalMessage.style.display = 'none';
-        prevBtn.disabled = true;
-        nextBtn.disabled = false;
-        nextBtn.textContent = 'Commencer 💌';
+        document.getElementById('reasonBox').innerText = reasons[current];
       }
     }
 
     const rain = document.getElementById('rain');
-    const symbols = ['🎀', '💗', '💋'];
+    const emojis = ['🎀','💗','💋'];
 
     function createEmoji() {
-      const el = document.createElement('span');
+      const el = document.createElement('div');
       el.className = 'emoji';
-      el.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+      el.innerText = emojis[Math.floor(Math.random() * emojis.length)];
       el.style.left = Math.random() * 100 + 'vw';
-      el.style.animationDuration = (5 + Math.random() * 5) + 's';
-      el.style.fontSize = (18 + Math.random() * 14) + 'px';
+      el.style.animationDuration = (4 + Math.random() * 3) + 's';
       rain.appendChild(el);
-      setTimeout(() => el.remove(), 11000);
+      setTimeout(() => el.remove(), 7000);
     }
 
-    setInterval(createEmoji, 380);
+    setInterval(createEmoji, 300);
   </script>
 </body>
 </html>
