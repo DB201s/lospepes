@@ -1,187 +1,184 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>Pour toi 💗</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pour toi 💗</title>
 
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
-    html, body {
-      width: 100%;
-      min-height: 100%;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      overflow-x: hidden;
-      background: transparent;
-      color: #fff;
-    }
+html, body {
+  width: 100%;
+  min-height: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  overflow-x: hidden;
+  background: transparent;
+  color: #fff;
+}
 
-    body { position: relative; }
+.bg {
+  position: fixed;
+  inset: 0;
+  background: url('photo.jpg') center/cover no-repeat;
+  filter: blur(8px);
+  transform: scale(1.08);
+  z-index: -1;
+}
 
-    .bg {
-      position: fixed;
-      inset: 0;
-      background: url('photo.jpg') center center / cover no-repeat;
-      z-index: -3;
-      filter: blur(8px);
-      transform: scale(1.08);
-    }
+.page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
 
-    .rain {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 1;
-      overflow: hidden;
-    }
+.card {
+  width: 100%;
+  max-width: 420px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 25px;
+  padding: 20px;
+  text-align: center;
+  backdrop-filter: blur(5px);
+}
 
-    .emoji {
-      position: absolute;
-      top: -10vh;
-      animation: fall linear forwards;
-      user-select: none;
-    }
+h1 {
+  font-size: 22px;
+  margin-bottom: 10px;
+}
 
-    @keyframes fall {
-      from { transform: translateY(0); }
-      to { transform: translateY(120vh); }
-    }
+.heart {
+  font-size: 30px;
+  margin-bottom: 15px;
+}
 
-    .page {
-      position: relative;
-      z-index: 2;
-      min-height: 100dvh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
+.reason-box {
+  display: none;
+  text-align: left;
+  background: rgba(255,255,255,0.15);
+  border-radius: 15px;
+  padding: 15px;
+  margin-top: 10px;
+}
 
-    .card {
-      width: 100%;
-      max-width: 420px;
-      background: rgba(255,255,255,0.1);
-      border-radius: 25px;
-      padding: 20px;
-      text-align: center;
-      backdrop-filter: blur(5px);
-    }
+.controls {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
 
-    h1 {
-      font-size: 22px;
-      margin-bottom: 10px;
-    }
+.btn {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  border-radius: 20px;
+  font-weight: bold;
+  cursor: pointer;
+}
 
-    .heart {
-      font-size: 30px;
-      margin-bottom: 15px;
-    }
+.primary { background: #ff4f93; color: white; }
+.secondary { background: rgba(255,255,255,0.2); color: white; }
 
-    .reason-box {
-      display: none;
-      text-align: left;
-      background: rgba(255,255,255,0.15);
-      border-radius: 15px;
-      padding: 15px;
-      margin-top: 10px;
-    }
+.final {
+  display: none;
+  margin-top: 15px;
+  text-align: left;
+  background: rgba(255,255,255,0.15);
+  border-radius: 15px;
+  padding: 15px;
+}
 
-    .controls {
-      display: flex;
-      gap: 10px;
-      margin-top: 15px;
-    }
+.rain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+}
 
-    .btn {
-      flex: 1;
-      padding: 12px;
-      border: none;
-      border-radius: 20px;
-      font-weight: bold;
-      cursor: pointer;
-    }
+.emoji {
+  position: absolute;
+  top: -10vh;
+  animation: fall linear forwards;
+}
 
-    .primary { background: #ff4f93; color: white; }
-    .secondary { background: rgba(255,255,255,0.2); color: white; }
-
-    .final {
-      display: none;
-      margin-top: 15px;
-      text-align: left;
-      background: rgba(255,255,255,0.15);
-      border-radius: 15px;
-      padding: 15px;
-    }
-  </style>
+@keyframes fall {
+  from { transform: translateY(0); }
+  to { transform: translateY(120vh); }
+}
+</style>
 </head>
 
 <body>
-  <div class="bg"></div>
-  <div class="rain" id="rain"></div>
 
-  <main class="page">
-    <section class="card">
-      <h1>5 raisons qui te donneront envie que je sois dans ta vie</h1>
-      <div class="heart">💗</div>
+<div class="bg"></div>
+<div class="rain" id="rain"></div>
 
-      <div class="reason-box" id="reasonBox"></div>
+<div class="page">
+  <div class="card">
 
-      <div class="controls">
-        <button class="btn secondary" id="prevBtn" onclick="prevReason()" disabled>Retour</button>
-        <button class="btn primary" id="nextBtn" onclick="nextReason()">Commencer 💌</button>
-      </div>
+    <h1>5 raisons qui te donneront envie que je sois dans ta vie</h1>
+    <div class="heart">💗</div>
 
-      <div class="final" id="finalMessage">
-        Passe de bonnes vacances, j’espère te voir à ton retour le plus rapidement possible.<br><br>
-        En plus, tu seras toute bronzée… et encore plus belle que tu ne l’es déjà 💋
-      </div>
-    </section>
-  </main>
+    <div class="reason-box" id="reasonBox"></div>
 
-  <script>
-    const reasons = [
-      "Je suis un homme très attentionné, avec plein de petites attentions et des gestes simples qui veulent dire beaucoup.",
-      "Même si on habite un peu loin, ce n’est pas un problème pour moi. Quand j’ai envie de quelqu’un, je suis vraiment motivé.",
-      "Je fais attention aux détails de tout ce que tu me dis, aux choses que tu aimes comme à celles que tu aimes moins.",
-      "Je ferai toujours de mon mieux pour que tu ne manques de rien et pour que tu te sentes bien à mes côtés.",
-      "Et surtout… on doit fêter nos putains d’anniversaires à l’autre bout du monde, toi et moi."
-    ];
+    <div class="controls">
+      <button class="btn secondary" onclick="prevReason()">Retour</button>
+      <button class="btn primary" onclick="nextReason()">Commencer 💌</button>
+    </div>
 
-    let current = -1;
+    <div class="final" id="finalMessage">
+      Passe de bonnes vacances, j’espère te voir à ton retour le plus rapidement possible.<br><br>
+      En plus, tu seras toute bronzée… et encore plus belle que tu ne l’es déjà 💋
+    </div>
 
-    function nextReason() {
-      current++;
+  </div>
+</div>
 
-      if (current < reasons.length) {
-        document.getElementById('reasonBox').style.display = 'block';
-        document.getElementById('reasonBox').innerText = reasons[current];
-      } else {
-        document.getElementById('finalMessage').style.display = 'block';
-      }
-    }
+<script>
+const reasons = [
+"Je suis un homme très attentionné, avec plein de petites attentions et des gestes simples qui veulent dire beaucoup.",
+"Même si on habite un peu loin, ce n’est pas un problème pour moi. Quand quelqu’un me plaît vraiment, je sais m’investir et faire les choses sérieusement.",
+"Je fais attention aux détails de tout ce que tu me dis, aux choses que tu aimes comme à celles que tu aimes moins.",
+"Je ferai toujours de mon mieux pour que tu ne manques de rien et pour que tu te sentes bien à mes côtés.",
+"Et surtout… on doit fêter nos putains d’anniversaires à l’autre bout du monde, toi et moi."
+];
 
-    function prevReason() {
-      if (current > 0) {
-        current--;
-        document.getElementById('reasonBox').innerText = reasons[current];
-      }
-    }
+let current = -1;
 
-    const rain = document.getElementById('rain');
-    const emojis = ['🎀','💗','💋'];
+function nextReason() {
+  current++;
 
-    function createEmoji() {
-      const el = document.createElement('div');
-      el.className = 'emoji';
-      el.innerText = emojis[Math.floor(Math.random() * emojis.length)];
-      el.style.left = Math.random() * 100 + 'vw';
-      el.style.animationDuration = (4 + Math.random() * 3) + 's';
-      rain.appendChild(el);
-      setTimeout(() => el.remove(), 7000);
-    }
+  if (current < reasons.length) {
+    document.getElementById("reasonBox").style.display = "block";
+    document.getElementById("reasonBox").innerText = reasons[current];
+  } else {
+    document.getElementById("finalMessage").style.display = "block";
+  }
+}
 
-    setInterval(createEmoji, 300);
-  </script>
+function prevReason() {
+  if (current > 0) {
+    current--;
+    document.getElementById("reasonBox").innerText = reasons[current];
+  }
+}
+
+const rain = document.getElementById("rain");
+const emojis = ["🎀","💗","💋"];
+
+function createEmoji() {
+  const el = document.createElement("div");
+  el.className = "emoji";
+  el.innerText = emojis[Math.floor(Math.random()*emojis.length)];
+  el.style.left = Math.random()*100 + "vw";
+  el.style.animationDuration = (4 + Math.random()*3) + "s";
+  rain.appendChild(el);
+  setTimeout(() => el.remove(), 7000);
+}
+
+setInterval(createEmoji, 300);
+</script>
+
 </body>
 </html>
