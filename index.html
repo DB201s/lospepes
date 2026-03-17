@@ -5,67 +5,67 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Pour toi 💗</title>
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     html, body {
       width: 100%;
       min-height: 100%;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       overflow-x: hidden;
-      background: #111;
+      background: #000;
       color: #fff;
     }
 
-    body {
-      position: relative;
-    }
+    body { position: relative; }
 
     .bg {
       position: fixed;
       inset: 0;
-      background: url('photo.jpg') center center / cover no-repeat;
+      background-image: url("photo.jpg");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
       z-index: -3;
-      transform: scale(1.08);
+      transform: scale(1.05);
     }
 
-    .bg::after {
-      content: "";
-      position: absolute;
+    .overlay {
+      position: fixed;
       inset: 0;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      background: rgba(0, 0, 0, 0.38);
       z-index: -2;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      background: rgba(0, 0, 0, 0.18);
+    }
+
+    .vignette {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background: radial-gradient(circle at center, rgba(255,255,255,0.02), rgba(0,0,0,0.35));
+      pointer-events: none;
     }
 
     .rain {
       position: fixed;
       inset: 0;
       pointer-events: none;
-      z-index: 0;
+      z-index: 1;
       overflow: hidden;
     }
 
     .emoji {
       position: absolute;
-      top: -10vh;
-      font-size: 24px;
+      top: -12vh;
       opacity: 0.95;
       animation: fall linear forwards;
       user-select: none;
+      text-shadow: 0 4px 10px rgba(0,0,0,0.25);
     }
 
     @keyframes fall {
-      0% {
-        transform: translateY(0) rotate(0deg);
-      }
-      100% {
-        transform: translateY(120vh) rotate(20deg);
-      }
+      0% { transform: translateY(0) rotate(0deg); }
+      100% { transform: translateY(120vh) rotate(20deg); }
     }
 
     .page {
@@ -75,85 +75,115 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 24px 16px 40px;
+      padding: 24px 14px 34px;
     }
 
     .card {
       width: 100%;
-      max-width: 430px;
-      background: rgba(255, 255, 255, 0.14);
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      max-width: 420px;
+      background: rgba(20, 20, 20, 0.38);
+      border: 1px solid rgba(255, 255, 255, 0.18);
       border-radius: 28px;
-      padding: 24px 18px;
-      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.35);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
+      padding: 22px 16px;
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.35);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       text-align: center;
     }
 
     h1 {
-      font-size: 25px;
-      line-height: 1.25;
-      margin-bottom: 18px;
+      font-size: 23px;
+      line-height: 1.22;
+      margin-bottom: 16px;
       text-shadow: 0 2px 10px rgba(0,0,0,0.35);
+    }
+
+    .heart {
+      font-size: 42px;
+      margin-bottom: 14px;
+      animation: pulse 1.8s infinite;
+    }
+
+    @keyframes pulse {
+      0%,100% { transform: scale(1); }
+      50% { transform: scale(1.08); }
     }
 
     .intro {
       font-size: 14px;
-      opacity: 0.95;
+      opacity: 0.96;
       margin-bottom: 18px;
+      line-height: 1.4;
     }
 
-    .reasons {
-      text-align: left;
-      display: grid;
-      gap: 12px;
-      margin-top: 10px;
-    }
-
-    .reason {
-      background: rgba(255, 255, 255, 0.13);
-      border-radius: 18px;
-      padding: 14px 14px;
-      line-height: 1.5;
-      font-size: 15px;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-    }
-
-    .reason strong {
-      display: inline-block;
-      margin-right: 6px;
-      color: #ffd2e2;
-    }
-
-    .btn {
-      margin-top: 20px;
-      width: 100%;
-      border: none;
-      border-radius: 999px;
-      padding: 15px 18px;
-      font-size: 16px;
-      font-weight: 700;
-      color: #fff;
-      background: linear-gradient(135deg, #ff4f93, #ff2f78);
-      box-shadow: 0 10px 25px rgba(255, 52, 122, 0.45);
-      cursor: pointer;
-      transition: transform 0.15s ease, box-shadow 0.15s ease;
-    }
-
-    .btn:active {
-      transform: scale(0.97);
-    }
-
-    .final {
-      margin-top: 18px;
+    .reason-box {
       display: none;
       text-align: left;
-      background: rgba(255, 255, 255, 0.13);
-      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 22px;
       padding: 16px;
       font-size: 15px;
       line-height: 1.6;
+      min-height: 132px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
+      animation: fadeUp 0.45s ease;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .reason-box strong {
+      color: #ffd2e2;
+      font-size: 28px;
+      display: inline-block;
+      margin-right: 10px;
+      vertical-align: top;
+      line-height: 1;
+    }
+
+    .controls {
+      display: flex;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .btn {
+      flex: 1;
+      border: none;
+      border-radius: 999px;
+      padding: 14px 16px;
+      font-size: 15px;
+      font-weight: 700;
+      color: #fff;
+      background: linear-gradient(135deg, #ff4f93, #ff2f78);
+      box-shadow: 0 10px 25px rgba(255, 52, 122, 0.35);
+      cursor: pointer;
+      transition: transform 0.15s ease, opacity 0.15s ease;
+    }
+
+    .btn.secondary {
+      background: rgba(255,255,255,0.12);
+      box-shadow: none;
+      border: 1px solid rgba(255,255,255,0.14);
+    }
+
+    .btn:active { transform: scale(0.97); }
+    .btn[disabled] { opacity: 0.45; cursor: default; }
+
+    .final {
+      margin-top: 16px;
+      display: none;
+      text-align: left;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.14);
+      padding: 16px;
+      font-size: 15px;
+      line-height: 1.65;
+      animation: fadeUp 0.45s ease;
     }
 
     .signature {
@@ -162,53 +192,100 @@
       font-size: 18px;
     }
 
+    .hint {
+      margin-top: 10px;
+      font-size: 12px;
+      opacity: 0.78;
+    }
+
     @media (min-width: 768px) {
-      .card {
-        max-width: 520px;
-        padding: 28px 22px;
-      }
-
-      h1 {
-        font-size: 30px;
-      }
-
-      .reason, .final {
-        font-size: 16px;
-      }
+      .card { max-width: 500px; padding: 28px 22px; }
+      h1 { font-size: 30px; }
+      .reason-box, .final { font-size: 16px; }
+      .btn { font-size: 16px; }
     }
   </style>
 </head>
 <body>
   <div class="bg"></div>
+  <div class="overlay"></div>
+  <div class="vignette"></div>
   <div class="rain" id="rain"></div>
 
   <main class="page">
     <section class="card">
-      <h1>5 raisons qui te donneront envie que je sois dans ta vie 💗</h1>
-      <p class="intro">Lis jusqu’au bout, le plus important est à la fin…</p>
+      <h1>5 raisons qui te donneront envie que je sois dans ta vie</h1>
+      <div class="heart">💗</div>
+      
 
-      <div class="reasons">
-        <div class="reason"><strong>1.</strong> Je suis un homme très attentionné, avec plein de petites attentions et des gestes tout simples qui veulent dire beaucoup.</div>
-        <div class="reason"><strong>2.</strong> Même si on habite un peu loin, ce n’est pas un souci pour moi. Quand j’ai envie de quelqu’un, je suis motivé et je fais les choses sérieusement.</div>
-        <div class="reason"><strong>3.</strong> Je fais attention aux détails de tout ce que tu peux me dire, aux choses que tu aimes, à celles que tu aimes moins, parce que ça compte pour moi.</div>
-        <div class="reason"><strong>4.</strong> Je ferai toujours au mieux pour que tu ne manques de rien et pour que tu te sentes bien, rassurée, et comblée à mes côtés.</div>
-        <div class="reason"><strong>5.</strong> Et surtout… on doit fêter nos putains d’anniversaires à l’autre bout du monde, toi et moi. ✈️🌍</div>
+      <div class="reason-box" id="reasonBox"></div>
+
+      <div class="controls">
+        <button class="btn secondary" id="prevBtn" onclick="prevReason()" disabled>Retour</button>
+        <button class="btn" id="nextBtn" onclick="nextReason()">Commencer 💌</button>
       </div>
-
-      <button class="btn" onclick="showMessage()">Continuer à lire 💌</button>
 
       <div class="final" id="finalMessage">
-        Passe de bonnes vacances, j’espère te voir à ton retour le plus rapidement possible. Et en plus, tu seras toute bronzée et encore plus belle que tu ne l’es déjà. 💋
+        Passe de bonnes vacances, j’espère te voir à ton retour le plus rapidement possible. En plus tu seras toute bronzée et encore plus belle que tu ne l’es déjà. 💋
         <div class="signature">🎀 💗 💋</div>
       </div>
+
+      <div class="hint">Photo à mettre dans le repo avec le nom exact : <b>photo.jpg</b></div>
     </section>
   </main>
 
   <script>
-    function showMessage() {
-      const box = document.getElementById('finalMessage');
-      box.style.display = 'block';
-      box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    const reasons = [
+      "Je suis un homme très attentionné, avec plein de petites attentions et des gestes tout simples qui veulent dire beaucoup.",
+      "Même si on habite un peu loin, ce n’est pas un souci pour moi. Quand j’ai envie de quelqu’un, je suis motivé et je fais les choses sérieusement.",
+      "Je fais attention aux détails de tout ce que tu peux me dire, aux choses que tu aimes, à celles que tu aimes moins, parce que ça compte pour moi.",
+      "Je ferai toujours au mieux pour que tu ne manques de rien et pour que tu te sentes bien, rassurée et comblée à mes côtés.",
+      "Et surtout… on doit fêter nos putains d’anniversaires à l’autre bout du monde, toi et moi. ✈️🌍"
+    ];
+
+    let current = -1;
+    const box = document.getElementById('reasonBox');
+    const nextBtn = document.getElementById('nextBtn');
+    const prevBtn = document.getElementById('prevBtn');
+    const finalMessage = document.getElementById('finalMessage');
+
+    function renderReason() {
+      if (current >= 0 && current < reasons.length) {
+        box.style.display = 'block';
+        box.innerHTML = `<strong>${current + 1}.</strong> ${reasons[current]}`;
+      }
+
+      prevBtn.disabled = current <= 0;
+
+      if (current < reasons.length - 1) {
+        nextBtn.textContent = current === -1 ? 'Commencer 💌' : 'Suivante 💗';
+      } else {
+        nextBtn.textContent = 'Lire la fin ✨';
+      }
+    }
+
+    function nextReason() {
+      if (current < reasons.length - 1) {
+        current++;
+        renderReason();
+      } else {
+        finalMessage.style.display = 'block';
+        finalMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        nextBtn.disabled = true;
+      }
+    }
+
+    function prevReason() {
+      if (current > 0) {
+        current--;
+        renderReason();
+      } else if (current === 0) {
+        current = -1;
+        box.style.display = 'none';
+        prevBtn.disabled = true;
+        nextBtn.textContent = 'Commencer 💌';
+        finalMessage.style.display = 'none';
+      }
     }
 
     const rain = document.getElementById('rain');
@@ -220,15 +297,12 @@
       el.textContent = symbols[Math.floor(Math.random() * symbols.length)];
       el.style.left = Math.random() * 100 + 'vw';
       el.style.animationDuration = (5 + Math.random() * 5) + 's';
-      el.style.fontSize = (18 + Math.random() * 16) + 'px';
+      el.style.fontSize = (18 + Math.random() * 15) + 'px';
       rain.appendChild(el);
-
-      setTimeout(() => {
-        el.remove();
-      }, 11000);
+      setTimeout(() => el.remove(), 11000);
     }
 
-    setInterval(createEmoji, 350);
+    setInterval(createEmoji, 380);
   </script>
 </body>
 </html>
