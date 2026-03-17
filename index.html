@@ -1,188 +1,234 @@
+<!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Pour toi 💗</title>
-
   <style>
-    body {
+    * {
+      box-sizing: border-box;
       margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      overflow: hidden;
-      color: white;
-      -webkit-tap-highlight-color: transparent;
+      padding: 0;
     }
 
-    .background {
-      position: fixed;
+    html, body {
       width: 100%;
-      height: 100%;
-      background: url('TA_PHOTO_ICI.jpg') center/cover no-repeat;
-      filter: blur(12px) brightness(0.6);
-      z-index: -1;
+      min-height: 100%;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      overflow-x: hidden;
+      background: #111;
+      color: #fff;
     }
 
-    .content {
+    body {
       position: relative;
-      text-align: center;
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      height: 100vh;
-      animation: fadeIn 1.5s ease;
     }
 
-    @keyframes fadeIn {
-      from {opacity: 0; transform: translateY(20px);} 
-      to {opacity: 1; transform: translateY(0);} 
+    .bg {
+      position: fixed;
+      inset: 0;
+      background: url('photo.jpg') center center / cover no-repeat;
+      z-index: -3;
+      transform: scale(1.08);
     }
 
-    h1 {
-      font-size: 22px;
-      margin-bottom: 20px;
-      padding: 0 10px;
+    .bg::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      background: rgba(0, 0, 0, 0.38);
+      z-index: -2;
     }
 
-    .reasons {
-      max-width: 100%;
-      margin: auto;
-      text-align: left;
-      font-size: 15px;
-      line-height: 1.6;
-      padding: 0 15px;
-    }
-
-    button {
-      margin: 25px auto 0;
-      padding: 14px 25px;
-      font-size: 15px;
-      border: none;
-      border-radius: 40px;
-      background: linear-gradient(45deg, #ff4d88, #ff1a66);
-      color: white;
-      cursor: pointer;
-      transition: 0.3s;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.4);
-      width: 80%;
-      max-width: 280px;
-    }
-
-    button:active {
-      transform: scale(0.95);
-    }
-
-    .hidden {
-      display: none;
-      margin-top: 20px;
-      font-size: 16px;
-      padding: 0 15px;
-      animation: fadeIn 1s ease;
+    .rain {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
     }
 
     .emoji {
-      position: fixed;
-      top: -50px;
-      font-size: 22px;
-      animation: fall linear infinite;
-      pointer-events: none;
+      position: absolute;
+      top: -10vh;
+      font-size: 24px;
+      opacity: 0.95;
+      animation: fall linear forwards;
+      user-select: none;
     }
 
     @keyframes fall {
-      to {
-        transform: translateY(110vh);
+      0% {
+        transform: translateY(0) rotate(0deg);
+      }
+      100% {
+        transform: translateY(120vh) rotate(20deg);
       }
     }
 
+    .page {
+      position: relative;
+      z-index: 2;
+      min-height: 100dvh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 16px 40px;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 430px;
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 28px;
+      padding: 24px 18px;
+      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.35);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 25px;
+      line-height: 1.25;
+      margin-bottom: 18px;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.35);
+    }
+
+    .intro {
+      font-size: 14px;
+      opacity: 0.95;
+      margin-bottom: 18px;
+    }
+
+    .reasons {
+      text-align: left;
+      display: grid;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .reason {
+      background: rgba(255, 255, 255, 0.13);
+      border-radius: 18px;
+      padding: 14px 14px;
+      line-height: 1.5;
+      font-size: 15px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .reason strong {
+      display: inline-block;
+      margin-right: 6px;
+      color: #ffd2e2;
+    }
+
+    .btn {
+      margin-top: 20px;
+      width: 100%;
+      border: none;
+      border-radius: 999px;
+      padding: 15px 18px;
+      font-size: 16px;
+      font-weight: 700;
+      color: #fff;
+      background: linear-gradient(135deg, #ff4f93, #ff2f78);
+      box-shadow: 0 10px 25px rgba(255, 52, 122, 0.45);
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .btn:active {
+      transform: scale(0.97);
+    }
+
+    .final {
+      margin-top: 18px;
+      display: none;
+      text-align: left;
+      background: rgba(255, 255, 255, 0.13);
+      border-radius: 18px;
+      padding: 16px;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .signature {
+      margin-top: 12px;
+      text-align: center;
+      font-size: 18px;
+    }
+
     @media (min-width: 768px) {
-      h1 { font-size: 28px; }
-      .reasons { font-size: 18px; }
-      button { font-size: 16px; }
+      .card {
+        max-width: 520px;
+        padding: 28px 22px;
+      }
+
+      h1 {
+        font-size: 30px;
+      }
+
+      .reason, .final {
+        font-size: 16px;
+      }
     }
   </style>
 </head>
 <body>
+  <div class="bg"></div>
+  <div class="rain" id="rain"></div>
 
-  <div class="background"></div>
+  <main class="page">
+    <section class="card">
+      <h1>5 raisons qui te donneront envie que je sois dans ta vie 💗</h1>
+      <p class="intro">Lis jusqu’au bout, le plus important est à la fin…</p>
 
-  <div class="content">
-    <h1 id="title"></h1>
+      <div class="reasons">
+        <div class="reason"><strong>1.</strong> Je suis un homme très attentionné, avec plein de petites attentions et des gestes tout simples qui veulent dire beaucoup.</div>
+        <div class="reason"><strong>2.</strong> Même si on habite un peu loin, ce n’est pas un souci pour moi. Quand j’ai envie de quelqu’un, je suis motivé et je fais les choses sérieusement.</div>
+        <div class="reason"><strong>3.</strong> Je fais attention aux détails de tout ce que tu peux me dire, aux choses que tu aimes, à celles que tu aimes moins, parce que ça compte pour moi.</div>
+        <div class="reason"><strong>4.</strong> Je ferai toujours au mieux pour que tu ne manques de rien et pour que tu te sentes bien, rassurée, et comblée à mes côtés.</div>
+        <div class="reason"><strong>5.</strong> Et surtout… on doit fêter nos putains d’anniversaires à l’autre bout du monde, toi et moi. ✈️🌍</div>
+      </div>
 
-    <div class="reasons" id="reasons"></div>
+      <button class="btn" onclick="showMessage()">Continuer à lire 💌</button>
 
-    <button onclick="showMessage()">Continuer à lire 💌</button>
-
-    <div class="hidden" id="message">
-      <p id="finalText"></p>
-    </div>
-  </div>
+      <div class="final" id="finalMessage">
+        Passe de bonnes vacances, j’espère te voir à ton retour le plus rapidement possible. Et en plus, tu seras toute bronzée et encore plus belle que tu ne l’es déjà. 💋
+        <div class="signature">🎀 💗 💋</div>
+      </div>
+    </section>
+  </main>
 
   <script>
-    const titleText = "5 raisons qui te donneront envie que je sois dans ta vie 💗";
-
-    const reasonsText = [
-      "1. Je suis un homme très attentionné, rempli de petites attentions avec des trucs tout bêtes comme ce genre de texte ahah.",
-      "2. Même si on habite un peu loin, c'est pas un problème pour moi, je suis vraiment motivé.",
-      "3. Je fais attention aux détails, à ce que tu aimes ou pas.",
-      "4. Je ferai tout pour que tu ne manques de rien et que tu sois heureuse.",
-      "5. Et surtout… on doit faire nos anniversaires à l'autre bout du monde toi et moi ✈️🌍"
-    ];
-
-    const finalMessage = "Passe de bonnes vacances 🌴 J'espère te voir à ton retour le plus rapidement possible. Et tu seras encore plus belle bronzée… même si tu l'es déjà beaucoup 💋";
-
-    function typeWriter(element, text, speed = 35, callback) {
-      let i = 0;
-      function typing() {
-        if (i < text.length) {
-          element.innerHTML += text.charAt(i);
-          i++;
-          setTimeout(typing, speed);
-        } else if (callback) {
-          callback();
-        }
-      }
-      typing();
-    }
-
-    function displayReasons(index = 0) {
-      if (index >= reasonsText.length) return;
-
-      const container = document.getElementById('reasons');
-      const p = document.createElement('p');
-      container.appendChild(p);
-
-      typeWriter(p, reasonsText[index], 25, () => {
-        displayReasons(index + 1);
-      });
-    }
-
     function showMessage() {
-      const msg = document.getElementById('message');
-      msg.style.display = 'block';
-      typeWriter(document.getElementById('finalText'), finalMessage, 25);
+      const box = document.getElementById('finalMessage');
+      box.style.display = 'block';
+      box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
 
-    typeWriter(document.getElementById('title'), titleText, 35, () => {
-      displayReasons();
-    });
-
-    const emojis = ['🎀','💗','💋'];
+    const rain = document.getElementById('rain');
+    const symbols = ['🎀', '💗', '💋'];
 
     function createEmoji() {
-      const emoji = document.createElement('div');
-      emoji.classList.add('emoji');
-      emoji.innerText = emojis[Math.floor(Math.random() * emojis.length)];
-      emoji.style.left = Math.random() * 100 + 'vw';
-      emoji.style.animationDuration = (Math.random() * 3 + 2) + 's';
-      document.body.appendChild(emoji);
+      const el = document.createElement('span');
+      el.className = 'emoji';
+      el.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+      el.style.left = Math.random() * 100 + 'vw';
+      el.style.animationDuration = (5 + Math.random() * 5) + 's';
+      el.style.fontSize = (18 + Math.random() * 16) + 'px';
+      rain.appendChild(el);
 
       setTimeout(() => {
-        emoji.remove();
-      }, 5000);
+        el.remove();
+      }, 11000);
     }
 
-    setInterval(createEmoji, 180);
+    setInterval(createEmoji, 350);
   </script>
-
 </body>
 </html>
