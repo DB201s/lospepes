@@ -1,307 +1,99 @@
+<!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>Pour toi 💗</title>
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pour toi 💗</title>
 
-    html, body {
-      width: 100%;
-      min-height: 100%;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      overflow-x: hidden;
-      background: #000;
-      color: #fff;
-    }
+<style>
+body {
+  margin: 0;
+  font-family: Arial;
+  color: white;
+}
 
-    body { position: relative; }
+/* IMAGE FOND */
+.bg {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: url('photo.jpg') center/cover no-repeat;
+  z-index: -1;
+}
 
-    .bg {
-      position: fixed;
-      inset: 0;
-      background-image: url("photo.jpg");
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      z-index: -3;
-      transform: scale(1.05);
-    }
+/* LEGER FILTRE (PAS TROP) */
+.overlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.3);
+  z-index: -1;
+}
 
-    .overlay {
-      position: fixed;
-      inset: 0;
-      z-index: -2;
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
-      background: rgba(0, 0, 0, 0.18);
-    }
+/* CONTENU */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
 
-    .vignette {
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-      background: radial-gradient(circle at center, rgba(255,255,255,0.02), rgba(0,0,0,0.35));
-      pointer-events: none;
-    }
+.card {
+  width: 90%;
+  max-width: 400px;
+  background: rgba(0,0,0,0.4);
+  padding: 20px;
+  border-radius: 20px;
+  text-align: center;
+}
 
-    .rain {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 1;
-      overflow: hidden;
-    }
-
-    .emoji {
-      position: absolute;
-      top: -12vh;
-      opacity: 0.95;
-      animation: fall linear forwards;
-      user-select: none;
-      text-shadow: 0 4px 10px rgba(0,0,0,0.25);
-    }
-
-    @keyframes fall {
-      0% { transform: translateY(0) rotate(0deg); }
-      100% { transform: translateY(120vh) rotate(20deg); }
-    }
-
-    .page {
-      position: relative;
-      z-index: 2;
-      min-height: 100dvh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 24px 14px 34px;
-    }
-
-    .card {
-      width: 100%;
-      max-width: 420px;
-      background: rgba(20, 20, 20, 0.38);
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      border-radius: 28px;
-      padding: 22px 16px;
-      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.35);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      text-align: center;
-    }
-
-    h1 {
-      font-size: 23px;
-      line-height: 1.22;
-      margin-bottom: 16px;
-      text-shadow: 0 2px 10px rgba(0,0,0,0.35);
-    }
-
-    .heart {
-      font-size: 42px;
-      margin-bottom: 14px;
-      animation: pulse 1.8s infinite;
-    }
-
-    @keyframes pulse {
-      0%,100% { transform: scale(1); }
-      50% { transform: scale(1.08); }
-    }
-
-    .intro {
-      font-size: 14px;
-      opacity: 0.96;
-      margin-bottom: 18px;
-      line-height: 1.4;
-    }
-
-    .reason-box {
-      display: none;
-      text-align: left;
-      background: rgba(255, 255, 255, 0.15);
-      border: 1px solid rgba(255,255,255,0.14);
-      border-radius: 22px;
-      padding: 16px;
-      font-size: 15px;
-      line-height: 1.6;
-      min-height: 132px;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
-      animation: fadeUp 0.45s ease;
-    }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(14px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .reason-box strong {
-      color: #ffd2e2;
-      font-size: 28px;
-      display: inline-block;
-      margin-right: 10px;
-      vertical-align: top;
-      line-height: 1;
-    }
-
-    .controls {
-      display: flex;
-      gap: 10px;
-      margin-top: 16px;
-    }
-
-    .btn {
-      flex: 1;
-      border: none;
-      border-radius: 999px;
-      padding: 14px 16px;
-      font-size: 15px;
-      font-weight: 700;
-      color: #fff;
-      background: linear-gradient(135deg, #ff4f93, #ff2f78);
-      box-shadow: 0 10px 25px rgba(255, 52, 122, 0.35);
-      cursor: pointer;
-      transition: transform 0.15s ease, opacity 0.15s ease;
-    }
-
-    .btn.secondary {
-      background: rgba(255,255,255,0.12);
-      box-shadow: none;
-      border: 1px solid rgba(255,255,255,0.14);
-    }
-
-    .btn:active { transform: scale(0.97); }
-    .btn[disabled] { opacity: 0.45; cursor: default; }
-
-    .final {
-      margin-top: 16px;
-      display: none;
-      text-align: left;
-      background: rgba(255, 255, 255, 0.15);
-      border-radius: 20px;
-      border: 1px solid rgba(255,255,255,0.14);
-      padding: 16px;
-      font-size: 15px;
-      line-height: 1.65;
-      animation: fadeUp 0.45s ease;
-    }
-
-    .signature {
-      margin-top: 12px;
-      text-align: center;
-      font-size: 18px;
-    }
-
-    .hint {
-      margin-top: 10px;
-      font-size: 12px;
-      opacity: 0.78;
-    }
-
-    @media (min-width: 768px) {
-      .card { max-width: 500px; padding: 28px 22px; }
-      h1 { font-size: 30px; }
-      .reason-box, .final { font-size: 16px; }
-      .btn { font-size: 16px; }
-    }
-  </style>
+button {
+  margin-top: 20px;
+  padding: 12px;
+  border: none;
+  border-radius: 20px;
+  background: pink;
+  font-weight: bold;
+}
+</style>
 </head>
+
 <body>
-  <div class="bg"></div>
-  <div class="overlay"></div>
-  <div class="vignette"></div>
-  <div class="rain" id="rain"></div>
 
-  <main class="page">
-    <section class="card">
-      <h1>5 raisons qui te donneront envie que je sois dans ta vie</h1>
-      <div class="heart">💗</div>
-      
+<div class="bg"></div>
+<div class="overlay"></div>
 
-      <div class="reason-box" id="reasonBox"></div>
+<div class="container">
+  <div class="card">
+    <h2 id="title">5 raisons 💗</h2>
 
-      <div class="controls">
-        <button class="btn secondary" id="prevBtn" onclick="prevReason()" disabled>Retour</button>
-        <button class="btn" id="nextBtn" onclick="nextReason()">Commencer 💌</button>
-      </div>
+    <p id="text">Clique pour commencer…</p>
 
-      <div class="final" id="finalMessage">
-        Passe de bonnes vacances, j’espère te voir à ton retour le plus rapidement possible. En plus tu seras toute bronzée et encore plus belle que tu ne l’es déjà. 💋
-        <div class="signature">🎀 💗 💋</div>
-      </div>
+    <button onclick="next()">Suivant</button>
+  </div>
+</div>
 
-      <div class="hint">Photo à mettre dans le repo avec le nom exact : <b>photo.jpg</b></div>
-    </section>
-  </main>
+<script>
+const reasons = [
+"Je suis un homme très attentionné",
+"Même à distance je suis motivé",
+"Je fais attention à chaque détail",
+"Je ferai tout pour ton bonheur",
+"On doit voyager ensemble ✈️"
+];
 
-  <script>
-    const reasons = [
-      "Je suis un homme très attentionné, avec plein de petites attentions et des gestes tout simples qui veulent dire beaucoup.",
-      "Même si on habite un peu loin, ce n’est pas un souci pour moi. Quand j’ai envie de quelqu’un, je suis motivé et je fais les choses sérieusement.",
-      "Je fais attention aux détails de tout ce que tu peux me dire, aux choses que tu aimes, à celles que tu aimes moins, parce que ça compte pour moi.",
-      "Je ferai toujours au mieux pour que tu ne manques de rien et pour que tu te sentes bien, rassurée et comblée à mes côtés.",
-      "Et surtout… on doit fêter nos putains d’anniversaires à l’autre bout du monde, toi et moi. ✈️🌍"
-    ];
+let i = -1;
 
-    let current = -1;
-    const box = document.getElementById('reasonBox');
-    const nextBtn = document.getElementById('nextBtn');
-    const prevBtn = document.getElementById('prevBtn');
-    const finalMessage = document.getElementById('finalMessage');
+function next() {
+  i++;
 
-    function renderReason() {
-      if (current >= 0 && current < reasons.length) {
-        box.style.display = 'block';
-        box.innerHTML = `<strong>${current + 1}.</strong> ${reasons[current]}`;
-      }
+  if(i < reasons.length){
+    document.getElementById('text').innerText = reasons[i];
+  } else {
+    document.getElementById('text').innerText = "Passe de bonnes vacances 💋";
+  }
+}
+</script>
 
-      prevBtn.disabled = current <= 0;
-
-      if (current < reasons.length - 1) {
-        nextBtn.textContent = current === -1 ? 'Commencer 💌' : 'Suivante 💗';
-      } else {
-        nextBtn.textContent = 'Lire la fin ✨';
-      }
-    }
-
-    function nextReason() {
-      if (current < reasons.length - 1) {
-        current++;
-        renderReason();
-      } else {
-        finalMessage.style.display = 'block';
-        finalMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        nextBtn.disabled = true;
-      }
-    }
-
-    function prevReason() {
-      if (current > 0) {
-        current--;
-        renderReason();
-      } else if (current === 0) {
-        current = -1;
-        box.style.display = 'none';
-        prevBtn.disabled = true;
-        nextBtn.textContent = 'Commencer 💌';
-        finalMessage.style.display = 'none';
-      }
-    }
-
-    const rain = document.getElementById('rain');
-    const symbols = ['🎀', '💗', '💋'];
-
-    function createEmoji() {
-      const el = document.createElement('span');
-      el.className = 'emoji';
-      el.textContent = symbols[Math.floor(Math.random() * symbols.length)];
-      el.style.left = Math.random() * 100 + 'vw';
-      el.style.animationDuration = (5 + Math.random() * 5) + 's';
-      el.style.fontSize = (18 + Math.random() * 15) + 'px';
-      rain.appendChild(el);
-      setTimeout(() => el.remove(), 11000);
-    }
-
-    setInterval(createEmoji, 380);
-  </script>
 </body>
 </html>
